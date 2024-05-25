@@ -61,7 +61,7 @@ export class CartoComponent implements OnInit {
      * On init
      */
     ngOnInit(): void {
-        this._fsDocEl = document.documentElement as FSDocumentElement;
+        
         this._siteService.getAll().subscribe((data) => {
             const niveaux = data as Site[];
             this.optionsGroup = [];
@@ -188,11 +188,6 @@ export class CartoComponent implements OnInit {
                 },
             };
 
-            // this.isRefresh = false;
-            // setTimeout(() => {
-            //     this.isRefresh = true;
-            // }, 10);
-
         }, err => {
             console.log(err)
             this.geoJSON = null
@@ -206,4 +201,131 @@ export class CartoComponent implements OnInit {
             this.isRefresh = true;
         }, 1);
     }
+    // -----------------------------------------------------------------------------------------------------
+    // @ Public methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     * Toggle the fullscreen mode
+     */
+    toggleFullscreen(): void
+    {
+        // Check if the fullscreen is open
+        this._isFullscreen = this._getBrowserFullscreenElement() !== null;
+
+        // Toggle the fullscreen
+        if ( this._isFullscreen )
+        {
+            this._closeFullscreen();
+        }
+        else
+        {
+            this._openFullscreen();
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Private methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     * Get browser's fullscreen element
+     *
+     * @private
+     */
+    private _getBrowserFullscreenElement(): Element
+    {
+        if ( typeof this._fsDoc.fullscreenElement !== 'undefined' )
+        {
+            return this._fsDoc.fullscreenElement;
+        }
+
+        if ( typeof this._fsDoc.mozFullScreenElement !== 'undefined' )
+        {
+            return this._fsDoc.mozFullScreenElement;
+        }
+
+        if ( typeof this._fsDoc.msFullscreenElement !== 'undefined' )
+        {
+            return this._fsDoc.msFullscreenElement;
+        }
+
+        if ( typeof this._fsDoc.webkitFullscreenElement !== 'undefined' )
+        {
+            return this._fsDoc.webkitFullscreenElement;
+        }
+
+        throw new Error('Fullscreen mode is not supported by this browser');
+    }
+
+    /**
+     * Open the fullscreen
+     *
+     * @private
+     */
+    private _openFullscreen(): void
+    {this._fsDocEl = document.getElementById("container")  as FSDocumentElement;
+        if ( this._fsDocEl.requestFullscreen )
+        {
+            this._fsDocEl.requestFullscreen();
+            return;
+        }
+
+        // Firefox
+        if ( this._fsDocEl.mozRequestFullScreen )
+        {
+            this._fsDocEl.mozRequestFullScreen();
+            return;
+        }
+
+        // Chrome, Safari and Opera
+        if ( this._fsDocEl.webkitRequestFullscreen )
+        {
+            this._fsDocEl.webkitRequestFullscreen();
+            return;
+        }
+
+        // IE/Edge
+        if ( this._fsDocEl.msRequestFullscreen )
+        {
+            this._fsDocEl.msRequestFullscreen();
+            return;
+        }
+    }
+
+    /**
+     * Close the fullscreen
+     *
+     * @private
+     */
+    private _closeFullscreen(): void
+    {
+        if ( this._fsDoc.exitFullscreen )
+        {
+            this._fsDoc.exitFullscreen();
+            return;
+        }
+
+        // Firefox
+        if ( this._fsDoc.mozCancelFullScreen )
+        {
+            this._fsDoc.mozCancelFullScreen();
+            return;
+        }
+
+        // Chrome, Safari and Opera
+        if ( this._fsDoc.webkitExitFullscreen )
+        {
+            this._fsDoc.webkitExitFullscreen();
+            return;
+        }
+
+        // IE/Edge
+        else if ( this._fsDoc.msExitFullscreen )
+        {
+            this._fsDoc.msExitFullscreen();
+            return;
+        }
+    }
+
 }
