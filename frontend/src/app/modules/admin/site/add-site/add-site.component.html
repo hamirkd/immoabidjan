@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>{{action=='new'?'Ajouter un site':'Modifier le site '+site.libelle}}</h2>
+<mat-dialog-content class="  sm:pl-6 sm:pr-6 w-100">
+
+
+    <form class=" " [formGroup]="siteForm">
+        <div class="flex flex-col w-full ">
+        <mat-form-field class="w-full">
+            <mat-label>Libelle</mat-label>
+            <input matInput [formControlName]="'libelle'" required>
+        </mat-form-field>
+        
+        <mat-form-field [ngClass]="formFieldHelpers" class="w-full fuse-mat-textarea flex-auto">
+            <mat-label>Description</mat-label>
+            <textarea matInput [formControlName]="'description'" [rows]="3" matTextareaAutosize></textarea>
+        </mat-form-field>
+    </div>
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Annuler</button>
+    <button mat-button (click)="onSubmit()" [disabled]="!siteForm.valid">
+        {{action=='new'?'Enregister':'Modifier'}}</button>
+</mat-dialog-actions>

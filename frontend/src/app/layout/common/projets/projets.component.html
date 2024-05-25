@@ -1,0 +1,28 @@
+<!-- Button -->
+<button mat-icon-button [matMenuTriggerFor]="projets">
+    <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: activeProjet}"></ng-container>
+</button>
+
+<!-- Projet menu -->
+<mat-menu [xPosition]="'before'" #projets="matMenu">
+    <ng-container *ngFor="let projet of listeProjets; trackBy: trackByFn">
+        <button mat-menu-item (click)="setActiveProjet(projet)">
+            <span class="flex items-center">
+                <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: projet}"></ng-container>
+                <span class="ml-3">{{projet.intitule}}</span>
+            </span>
+        </button>
+    </ng-container>
+</mat-menu>
+
+<!-- Flag image template -->
+<ng-template let-projet #flagImage>
+    <span class="relative w-10  rounded-sm overflow-hidden">
+        <span class="rounded-sm  w-6  inset-0 ring-1 ring-inset ring-black ring-opacity-100"></span>
+    <img *ngIf="projet?.avatar" class="flex items-center justify-center object-cover w-full h-full" [src]="urlForBackend+'api/projet/getAvatar/'+projet.id+'?token='+token" [alt]="'Flag image for ' + projet?.intitule">
+    <div class="object-cover flex items-center justify-center  p-1 h-full rounded uppercase text-4xl font-bold leading-none bg-white-200 text-black-600 dark:bg-white-700 dark:text-white-200" *ngIf="!projet?.avatar">
+        {{projet?.intitule?.charAt(0)}}
+    </div>
+    </span>
+
+</ng-template>

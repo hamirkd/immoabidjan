@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>{{action=='new'?'Ajouter un acquereur':'Modifier les informations de l\'acquereur '+acquereur.nom+' '+acquereur.nom}}</h2>
+<mat-dialog-content class="  sm:p-6 w-200">
+    <form class=" " [formGroup]="acquereurForm">
+        <div class="flex flex-col w-full ">
+            <div class="flex">
+                <mat-form-field class="w-1/3 pr-1">
+                    <mat-label>Type Acquereur</mat-label>
+                    <mat-select [formControlName]="'typeAcquereur'" required>
+                        <mat-option [value]="site" *ngFor="let site of typeAcquereurList">{{site}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-1/3 pr-1">
+                    <mat-label>Nom</mat-label>
+                    <input matInput [formControlName]="'nom'" required>
+                </mat-form-field>
+                <mat-form-field class="w-1/3 pr-1">
+                    <mat-label>Prénom(s)</mat-label>
+                    <input matInput [formControlName]="'prenom'" required>
+                </mat-form-field>
+            </div>
+
+            <div class="flex">
+                <mat-form-field class="w-1/3 pr-1">
+                    <mat-label>Genre</mat-label>
+                    <mat-select [formControlName]="'genre'" required>
+                        <mat-option [value]="genre" *ngFor="let genre of typeGenreList">{{genre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-1/3 pr-1">
+                    <mat-label>Téléphone</mat-label>
+                    <input matInput [formControlName]="'telephone'">
+                </mat-form-field>
+                <mat-form-field class="w-1/3 pr-1">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput [formControlName]="'email'">
+                </mat-form-field>
+            </div>
+
+            <div class="flex">
+                <mat-form-field class="w-1/3 pr-1">
+                    <mat-label>Type Document</mat-label>
+                    <mat-select [formControlName]="'typeDoc'" required>
+                        <mat-option [value]="typeDoc" *ngFor="let typeDoc of typeDocList">{{typeDoc}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-1/3 pr-1">
+                    <mat-label>Document d'identification</mat-label>
+                    <input matInput [formControlName]="'docIdentification'">
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Annuler</button>
+    <button mat-button (click)="onSubmit()" [disabled]="!acquereurForm.valid">
+        {{action=='new'?'Enregister':'Modifier'}}</button>
+</mat-dialog-actions>

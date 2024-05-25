@@ -1,0 +1,126 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <div class="flex flex-col flex-auto items-center p-6 sm:p-10">
+        <div class="flex flex-col w-full">
+
+            <div class="mt-2 text-4xl sm:text-2xl font-extrabold tracking-tight leading-tight">
+                Information du Projet
+            </div>
+            <!-- Form -->
+            <div class="mt-8 sm:mt-12 p-6 pb-7 sm:p-10 sm:pb-7 shadow rounded-2xl bg-card">
+                <!-- Alert -->
+                <fuse-alert class="mb-8" *ngIf="alert" [type]="alert.type" [showIcon]="false">
+                    {{alert.message}}
+                </fuse-alert>
+                <div class="space-y-1 flex">
+
+
+                    <div class="flex flex-col w-2/3 p-6" *ngIf="!editMode">
+
+                        <div class="flex flex-col w-full">
+                            <div class="flex pt-0">
+                                <div class="w-1/3 pr-2">
+                                    <label class="w-1/2">Code : </label>
+                                    <label class="w-1/2">{{projet?.code}}</label>
+                                </div>
+                                <div class="w-1/2 pr-l">
+                                    <label class="w-1/2">Intitulé : </label>
+                                    <label class="w-1/2">{{projet?.intitule}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col w-full">
+
+                        </div>
+                    </div>
+                    <div class="flex flex-col w-2/3 p-6" *ngIf="editMode">
+                        <form class="" [formGroup]="projetForm">
+                            <div class="flex flex-col w-full ">
+                                <div class="flex">
+                                    <mat-form-field class="w-1/3 pr-2">
+                                        <mat-label>code</mat-label>
+                                        <input matInput [formControlName]="'code'" required>
+                                    </mat-form-field>
+                                    <mat-form-field class="w-2/3 pl-2">
+                                        <mat-label>intitule</mat-label>
+                                        <input matInput [formControlName]="'intitule'" required>
+                                    </mat-form-field>
+                                </div>
+
+                                <mat-form-field [ngClass]="formFieldHelpers" class="fuse-mat-textarea flex-auto">
+                                    <mat-label>Objectif</mat-label>
+                                    <textarea matInput [formControlName]="'objectif'" [rows]="3" matTextareaAutosize></textarea>
+                                </mat-form-field>
+                            </div>
+                            <div class="flex flex-col w-full">
+                                <div class="items-center">
+                                    <button mat-button cdkFocusInitial (click)="toggleEditMode()">Annuler</button>
+                                    <button mat-button (click)="onSubmit()" [disabled]="!projetForm.valid" class=" cursor-pointer mt-2 ml-2 bg-card  bg-red-900">
+                                        
+                                <label class="ml-0 cursor-pointer" style="color: white;">Modifier</label></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="flex flex-col w-1/3">
+                        <div class="mb-6 flex">
+                            <div class="ml-auto -mt-2 w-1/2 text-left">
+                                <button mat-icon-button (click)="toggleEditMode()">
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col w-full" *ngIf="editMode">
+                            <div class="flex flex-auto items-end -mt-16">
+                                <div class="relative flex items-center justify-center w-32 h-32 rounded-full overflow-hidden ring-4 ring-bg-card">
+                                    <!-- Upload / Remove avatar -->
+                                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                                        <div>
+                                            <input id="avatar-file-input" class="absolute h-0 w-0 opacity-0 invisible pointer-events-none" type="file" [multiple]="false" [accept]="'image/jpeg, image/png'" (change)="uploadAvatar(avatarFileInput.files)" #avatarFileInput>
+                                            <label class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover" for="avatar-file-input" matRipple>
+                                        <mat-icon
+                                            class="text-white"
+                                            [svgIcon]="'heroicons_outline:camera'"></mat-icon>
+                                    </label>
+                                        </div>
+                                        <div>
+                                            <button mat-icon-button (click)="removeAvatar()">
+                                        <mat-icon
+                                            class="text-white"
+                                            [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+                                    </button>
+                                        </div>
+                                    </div>
+                                    <!-- Image/Letter -->
+                                    <img class="object-cover w-full h-full" *ngIf="projet?.avatar" [src]="'api/projet/getAvatar/'+projet?.id+'?token='+token">
+                                    <div class="flex items-center justify-center w-full h-full rounded overflow-hidden uppercase text-8xl font-bold leading-none bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200" *ngIf="!projet?.avatar">
+                                        {{projet.intitule.charAt(0)}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col w-full" *ngIf="!editMode">
+                            <div class="flex flex-auto items-end -mt-16">
+                                <!-- Avatar -->
+                                <div class="flex items-center justify-center w-32 h-32 rounded-full overflow-hidden ring-4 ring-bg-card">
+                                    <img class="object-cover w-full h-full" *ngIf="projet?.avatar" [src]="urlForBackend+'api/projet/getAvatar/'+projet?.id+'?token='+token">
+                                    <div class="flex items-center justify-center w-full h-full rounded overflow-hidden uppercase text-8xl font-bold leading-none bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200" *ngIf="!projet?.avatar">
+                                        {{projet?.intitule?.charAt(0)}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

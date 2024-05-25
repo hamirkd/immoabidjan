@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>{{action=='new'?'Ajouter un Projet':'Modifier l\'Projet '+Projet.intitule}}</h2>
+<mat-dialog-content class="  sm:p-6 w-200">
+    <form class=" " [formGroup]="ProjetForm">
+        <div class="flex flex-col w-full ">
+            <div class="flex">
+                <mat-form-field class="w-1/3 pr-2">
+                    <mat-label>code</mat-label>
+                    <input matInput [formControlName]="'code'" required>
+                </mat-form-field>
+                <mat-form-field class="w-2/3 pl-2">
+                    <mat-label>intitule</mat-label>
+                    <input matInput [formControlName]="'intitule'" required>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field [ngClass]="formFieldHelpers" class="fuse-mat-textarea flex-auto">
+                <mat-label>Objectif</mat-label>
+                <textarea matInput [formControlName]="'objectif'" [rows]="3" matTextareaAutosize></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Annuler</button>
+    <button mat-button (click)="onSubmit()" [disabled]="!ProjetForm.valid">
+        {{action=='new'?'Enregister':'Modifier'}}</button>
+</mat-dialog-actions>

@@ -1,0 +1,84 @@
+<div class="flex flex-col flex-auto min-w-0">
+<!-- Header -->
+<div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pr-6 pl-6 pt-1 pb-1   sm:px-10 border-b bg-card dark:bg-transparent">
+    <div class="flex-1 min-w-0">
+        <!-- Breadcrumbs -->
+        <div class="flex flex-wrap items-center font-medium">
+            <div>
+                <a class="whitespace-nowrap text-primary-500" [routerLink]="['/terrain']" routerLinkActive="router-link-active">Terrain</a>
+            </div>
+            <div class="flex items-center ml-1 whitespace-nowrap">
+                <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+                <a class="whitespace-nowrap text-primary-500" [routerLink]="['/terrain/show',terrain.id]" routerLinkActive="router-link-active">Information du terrain</a>
+            </div>
+        </div>
+        <!-- Title -->
+    </div>
+</div>
+    <!-- Main -->
+    <div class="flex flex-col flex-auto items-center p-6 sm:p-10">
+        <div class="flex flex-col w-full">
+
+            <div class="mt-2 text-4xl sm:text-2xl font-extrabold tracking-tight leading-tight">
+                Détail du terrain
+            </div>
+            <!-- Form -->
+            <div class="mt-2 sm:mt-2 pb-7 sm:p-6 sm:pb-7 shadow rounded-2xl bg-card">
+                
+                <div class="space-y-1 flex flex-col p-1">
+
+                        <div class="w-full">
+                            <div class="flex pt-0">
+                                <div class="w-1/4 pr-l">
+                                    <label class="w-1/2">Code : </label>
+                                    <label class="w-1/2">{{terrain?.code}}</label>
+                                </div>
+                                <div class="w-1/4 pr-l">
+                                    <label class="w-1/2">Numero : </label>
+                                    <label class="w-1/2">{{terrain?.numero}}</label>
+                                </div>
+                                <div class="w-1/4 pr-l">
+                                    <label class="w-1/2">Lot : </label>
+                                    <label class="w-1/2">{{terrain?.lot}}</label>
+                                </div>
+                                <div class="w-1/4 pr-l">
+                                    <div class="text-right">
+                                        <button mat-icon-button (click)="editer()">
+                                            <mat-icon
+                                                class="icon-size-5"
+                                                [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex pt-2">
+                                <div class="w-1/4 pr-l">
+                                    <label class="w-1/2">Type Logement : </label>
+                                    <label class="w-1/2">{{terrain?.typeLogement}}</label>
+                                </div>
+                                <div class="w-1/4 pr-l">
+                                    <label class="w-1/2">Superficie : </label>
+                                    <label class="w-1/2" *ngIf="terrain?.superficie">{{terrain?.superficie}} M2</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+        </div>
+        <div class="flex flex-col w-full">
+
+            <div class="mt-2 text-4xl sm:text-2xl font-extrabold tracking-tight leading-tight">
+                Information de l'acquereur
+            </div>
+            <!-- Form -->
+            <div class="mt-2 sm:mt-2 pb-7 sm:p-6 sm:pb-7 shadow rounded-2xl bg-card">
+                
+                <div class="space-y-1 flex flex-col w-4/5 p-1">
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
