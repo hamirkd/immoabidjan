@@ -7,6 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AcquisitionService } from 'app/core/services/acquisition.service';
 import { DOCUMENT } from '@angular/common';
 import { FSDocument, FSDocumentElement } from '@fuse/components/fullscreen';
+import { Router } from '@angular/router';
+import { TerrainService } from 'app/core/services/terrain.service';
+import { Terrain } from 'app/models/terrain.model';
 
 @Component({
     selector: 'app-carto',
@@ -49,7 +52,9 @@ export class CartoComponent implements OnInit {
      * Constructor
      */
     constructor( private _siteService: SiteService, private _acquisitionService: AcquisitionService,
-        @Inject(DOCUMENT) private _document: Document
+        @Inject(DOCUMENT) private _document: Document,
+        private _router: Router,
+        private _terrainService: TerrainService
      ) {
         this._fsDoc = _document as FSDocument;
      }
@@ -79,8 +84,28 @@ export class CartoComponent implements OnInit {
                 })
             });
             this.regrouperPar = [this.optionsGroup[0]];
+            if (sessionStorage.getItem('optionSiteSelect')) {
+                const option = JSON.parse(sessionStorage.getItem('optionSiteSelect'));
+                const index = this.optionsGroup.find(o=>o.value===option.value);
+                this.regrouperPar = [index];
+                this.optionClick(index);
+            }
         });
+        this.initListTerrain();
 
+    }
+    listTerrains: Terrain [] = [];
+    initListTerrain () {
+        if(sessionStorage.getItem("terrain")) {
+            let data = JSON.parse(sessionStorage.getItem("terrain"))
+            this.listTerrains = data;
+        }
+        this._terrainService.getAll().subscribe(data=>{
+            this.listTerrains = data;
+            sessionStorage.setItem("terrain",JSON.stringify(data));
+          },err=>{ 
+            this.listTerrains = [];
+          })
     }
 
     optionClick(option) {
@@ -88,6 +113,7 @@ export class CartoComponent implements OnInit {
         // rechercher existance
         if (option.value != 0) {
             this.regrouperParForm.setValue(option);
+            sessionStorage.setItem("optionSiteSelect",JSON.stringify(option));
         }
 
         else this.regrouperParForm.setValue(null);
@@ -98,28 +124,42 @@ export class CartoComponent implements OnInit {
     }
 
     visualiser() {
+        const thisthis = this;
         this._siteService.getGeoJSONAsJSON(this.regrouperParForm?.value?.geoJSON).subscribe(data => {
-
             this.geoJSON = data;
             // Fonction pour attribuer une couleur en fonction du type de acquereur
             const getColor = (type) => {
                 switch(type) {
-                    case 'PARTICULIER': return '#FF0000'; // Rouge
-                    case 'ENTREPRISE': return '#00FF00'; // Vert
-                    case 'INDUSTRIE': return '#0000FF'; // Bleu
-                    case 'PROPRIETAIRE_TERRIEN': return '#FFFF00'; // Jaune
-                    case 'SERVICE_PUBLIC': return '#000000'; // Noir
-                    default: return '#FFFFFF'; // Blanc
+                    case 'PARTICULIER': return '#FF5733'; // Rouge
+                    case 'ENTREPRISE': return '#D68910'; // Vert
+                    case 'INDUSTRIE': return '#82E0AA'; // Bleu
+                    case 'PROPRIETAIRE_TERRIEN': return '#1E8449'; // Jaune
+                    case 'SERVICE_PUBLIC': return '#2874A6'; // Noir
+                    default: return '#F9E79F'; // Blanc
                 }
             };
             this.dataSource.data = [];
             this._acquisitionService.findBySite(this.regrouperParForm?.value?.value).subscribe(data=>{
+
+                let listTerrainBySite:any[] = JSON.parse(JSON.stringify(this.listTerrains));
                 data.forEach(t=>{
                     this.dataSource.data.push({...t.terrain, 
                         proprietaire: t.acquereur.nom + ' ' + t.acquereur.prenom,
                         color: getColor(t.acquereur.typeAcquereur)
-                     })
+                    });
+                    let index = listTerrainBySite.findIndex(lt=>lt.id==t.terrain_id);
+                    if(index>-1){
+                        listTerrainBySite.splice(index,1);
+                    }
                 });
+                console.log("====>",listTerrainBySite)
+                listTerrainBySite.forEach(lt=>{
+                    this.dataSource.data.push({...lt, 
+                        color: getColor(null),
+                        occupation: 'NON OCCUPE'
+                    });
+                });
+                
                 this.isRefresh = false;
                 setTimeout(() => {
                     this.isRefresh = true;
@@ -131,21 +171,19 @@ export class CartoComponent implements OnInit {
                 }, 1);
             });
             
-            this.chartOptions =
-            {
+            this.chartOptions = {
                 chart: {
-                    map: this.geoJSON
+                    map: this.geoJSON,
                 },
                 title: {
                     text: "SITE de " + this.afficherLibelleSite
                 },
-                subtitle: {
-                },
+                subtitle: {},
                 mapNavigation: {
                     enabled: true,
                     buttonOptions: {
                         alignTo: "spacingBox"
-                    },
+                    }
                 },
                 legend: {
                     enabled: false
@@ -168,7 +206,24 @@ export class CartoComponent implements OnInit {
                         },
                         allAreas: true,
                         data: this.dataSource.data,
-                        joinBy : [ 'code', 'code'],
+                        joinBy: ['code', 'code'],
+                        point: {
+                            events: {
+                                click: function(event) {
+                                    if (event.ctrlKey) {
+                                    // thisthis._router.navigate(['terrain/show',this['id']]);
+                                    const url = thisthis._router.serializeUrl(
+                                        thisthis._router.createUrlTree(['terrain/show', this['id']])
+                                      );
+                                      window.open(url, '_blank');
+                                    // alert('Parcelle: ' + this.name + '\n' +
+                                    //       'Code: ' + this['code'] + '\n' +
+                                    //       'Superficie: ' + this['superficie'] + '\n' +
+                                    //       (this['typeLogement'] ? 'Type Logement: ' + this['typeLogement'] + '\n' : '') + 
+                                    //       (this['proprietaire'] ? 'Nom Acquereur: ' + this['proprietaire'] : ''));
+                                }}
+                            }
+                        }
                     }
                 ],
                 tooltip: {
@@ -176,31 +231,25 @@ export class CartoComponent implements OnInit {
                         return '<b>' + this.point.name + '</b><br>' + 
                                'Code: ' + this.point['code'] + '<br>' + 
                                'Superficie: ' + this.point['superficie']+ '<br>' + 
-                               (this.point['typeLogement']?'Type Logement: ' + this.point['typeLogement'] + '<br>': ' ') + 
-                               (this.point['proprietaire']?'Nom Acquereur: ' + this.point['proprietaire']:'');
+                               (this.point['typeLogement'] ? 'Type Logement: ' + this.point['typeLogement'] + '<br>' : '') + 
+                               (this.point['proprietaire'] ? 'Nom Acquereur: ' + this.point['proprietaire'] + '<br>' : '') +
+                               (this.point['occupation'] ? 'NON OCCUPE' + '<br>' : '');
                     }
                 },
-
+                credits: {
+                    enabled: false
+                },
                 exporting: {
                     showTable: true,
-                    allowHTML: true,
-
-                },
+                    allowHTML: true
+                }
             };
-
         }, err => {
-            console.log(err)
-            this.geoJSON = null
-        })
+            console.log(err);
+            this.geoJSON = null;
+        });
     }
-
-    togglePleinEcran() {
-        this.enPleinEcran = !this.enPleinEcran;
-        this.isRefresh = false;
-        setTimeout(() => {
-            this.isRefresh = true;
-        }, 1);
-    }
+    
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
