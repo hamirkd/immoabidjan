@@ -19,6 +19,15 @@ export class AcquisitionService {
         return this.apiService.get('api/acquisition/findBySite/'+site_id);
     }
 
+    findByTerrain(terrain_id): Observable<Acquisition[]> {
+        return this.apiService.get('api/acquisition/findByTerrain/'+terrain_id);
+    }
+
+    findByAcquereur(acquereur_id): Observable<Acquisition[]> {
+        return this.apiService.get('api/acquisition/findByAcquereur/'+acquereur_id);
+    }
+    
+
     // {data,current_page,from,last_page,per_page,}
     getAllPaginate(per_page,pageIndex): Observable<any[]> {
         return this.apiService.get('api/acquisition/paginate/'+per_page+"/"+pageIndex);

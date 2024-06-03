@@ -70,6 +70,13 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('acquisition', 'App\Http\Controllers\AcquisitionController');
     Route::get('acquisition/paginate/{pageSize}/{pageIndex}', 'App\Http\Controllers\AcquisitionController@paginate');
     Route::get('acquisition/findBySite/{site_id}', 'App\Http\Controllers\AcquisitionController@findBySite');
+    Route::get('acquisition/findByTerrain/{terrain_id}', 'App\Http\Controllers\AcquisitionController@findByTerrain');
+    Route::get('acquisition/findByAcquereur/{acquereur_id}', 'App\Http\Controllers\AcquisitionController@findByAcquereur');
+    
+    // Media
+    Route::apiResource('media', 'App\Http\Controllers\MediaController');
+    Route::post('media/getMediaByTypeAndId', 'App\Http\Controllers\MediaController@getMediaByTypeAndId');
+    Route::get('media/getDocument/{id}', 'App\Http\Controllers\MediaController@getDocument');
 
 
     Route::apiResource('utilisateur', 'App\Http\Controllers\UtilisateurController');

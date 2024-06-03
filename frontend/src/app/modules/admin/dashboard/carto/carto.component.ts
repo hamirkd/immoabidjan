@@ -144,7 +144,8 @@ export class CartoComponent implements OnInit {
                 let listTerrainBySite:any[] = JSON.parse(JSON.stringify(this.listTerrains));
                 data.forEach(t=>{
                     this.dataSource.data.push({...t.terrain, 
-                        proprietaire: t.acquereur.nom + ' ' + t.acquereur.prenom,
+                        proprietaire: t.acquereur.genre + ' ' + t.acquereur.nom + ' ' + t.acquereur.prenom,
+                        typeAcquereur: t.acquereur.typeAcquereur,
                         color: getColor(t.acquereur.typeAcquereur)
                     });
                     let index = listTerrainBySite.findIndex(lt=>lt.id==t.terrain_id);
@@ -233,6 +234,7 @@ export class CartoComponent implements OnInit {
                                'Superficie: ' + this.point['superficie']+ '<br>' + 
                                (this.point['typeLogement'] ? 'Type Logement: ' + this.point['typeLogement'] + '<br>' : '') + 
                                (this.point['proprietaire'] ? 'Nom Acquereur: ' + this.point['proprietaire'] + '<br>' : '') +
+                               (this.point['typeAcquereur'] ? 'Type Acquereur: ' + this.point['typeAcquereur'] + '<br>' : '') +
                                (this.point['occupation'] ? 'NON OCCUPE' + '<br>' : '');
                     }
                 },

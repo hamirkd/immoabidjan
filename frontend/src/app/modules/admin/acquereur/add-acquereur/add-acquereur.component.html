@@ -22,7 +22,7 @@
             <div class="flex">
                 <mat-form-field class="w-1/3 pr-1">
                     <mat-label>Genre</mat-label>
-                    <mat-select [formControlName]="'genre'" required>
+                    <mat-select [formControlName]="'genre'">
                         <mat-option [value]="genre" *ngFor="let genre of typeGenreList">{{genre}}</mat-option>
                     </mat-select>
                 </mat-form-field>

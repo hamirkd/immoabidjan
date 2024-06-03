@@ -5,6 +5,7 @@ import { AddAcquereurComponent } from './add-acquereur/add-acquereur.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { ShowAcquereurComponent } from './show-acquereur/show-acquereur.component';
+import { ShortListModule } from '../short-list/short-list.module';
 
 
 const routes: Routes = [
@@ -21,7 +22,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),SharedModule
+    RouterModule.forChild(routes),SharedModule, ShortListModule
   ]
 })
 export class AcquereurModule { }

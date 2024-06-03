@@ -12,7 +12,7 @@
                 <mat-form-field class="w-1/2 pr-1">
                     <mat-label>Terrain</mat-label>
                     <mat-select [formControlName]="'terrain_id'" required>
-                        <mat-option [value]="terrain.id" *ngFor="let terrain of listeTerrain">{{terrain.numero}}</mat-option>
+                        <mat-option [value]="terrain.id" *ngFor="let terrain of listeTerrain">{{terrain.code}}-{{terrain.numero}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -20,7 +20,7 @@
                 <mat-form-field class="w-1/2 pr-1">
                     <mat-label>Acquereur</mat-label>
                     <mat-select [formControlName]="'acquereur_id'" required>
-                        <mat-option [value]="acquereur.id" *ngFor="let acquereur of listeAcquereur">{{acquereur.nom}} {{acquereur.prenom}}</mat-option>
+                        <mat-option [value]="acquereur.id" *ngFor="let acquereur of listeAcquereur">{{acquereur.genre}} {{acquereur.nom}} {{acquereur.prenom}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="w-1/2 pr-1">

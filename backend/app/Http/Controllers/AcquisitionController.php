@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acquisition;
+use App\Models\AcquisitionItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,7 +55,7 @@ class AcquisitionController extends Controller
      * @param  \App\Models\Acquisition  $acquisition
      * @return \Illuminate\Http\Response
      */
-    public function show(Acquisition $acquisition)
+    public function show(AcquisitionItem $acquisition)
     {
         return $acquisition;
     } 
@@ -77,6 +78,16 @@ class AcquisitionController extends Controller
     public function findBySite($site_id)
     {
         return Acquisition::where("site_id","=",$site_id)->get();
+    }
+
+    public function findByTerrain($terrain_id)
+    {
+        return Acquisition::where("terrain_id","=",$terrain_id)->get();
+    }
+
+    public function findByAcquereur($acquereur_id)
+    {
+        return Acquisition::where("acquereur_id","=",$acquereur_id)->get();
     }
 
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAcquisitionsTable extends Migration
+class CreateMediasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,16 @@ class CreateAcquisitionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('acquisitions', function (Blueprint $table) {
+        Schema::create('medias', function (Blueprint $table) {
             $table->id();
-            $table->string('code',50)->nullable();
-            $table->integer('projet_id');
-            $table->integer('site_id');
-            $table->integer('terrain_id');
-            $table->integer('acquereur_id');
-            $table->integer('montant');
-            $table->date('dateAcquisition');
+            $table->enum('type_documents', ['DOSSIER_ACQUISITIONS', 'DOSSIER_ACQUEREURS'])->nullable();
+            $table->integer('parent_id');
+            $table->string('libelle_document',255);
+            $table->string('file_name',255);
             $table->integer('updated_by')->nullable();
             $table->integer('created_by')->nullable();
             $table->timestamps();
+            $table->softDeletes(); 
         });
     }
 
@@ -35,6 +33,6 @@ class CreateAcquisitionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acquisitions');
+        Schema::dropIfExists('medias');
     }
 }

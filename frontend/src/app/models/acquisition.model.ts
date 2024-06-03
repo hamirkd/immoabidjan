@@ -4,7 +4,8 @@ import { Terrain } from "./terrain.model";
 
 
 export class Acquisition {
-    id:number
+    id:number;
+    code:string;
     acquereur_id:number;
     acquereur?:Acquereur;
     site_id:number;
@@ -13,24 +14,24 @@ export class Acquisition {
     terrain?:Terrain;
     dateAcquisition:number;
     montant:string;
-    createdAt?:any
-    UpdatedAt?:any
-    createdBy?:any
-    UpdatedBy?:any
-
+    created_at?:any
+    updated_at?:any
+    createdauteur?:any;
+    updatedauteur?:any;
     constructor (acquisition){
         this.id =   acquisition.id;
         this.acquereur_id = acquisition.acquereur_id;
         this.acquereur = acquisition.acquereur;
+        this.code = acquisition.code;
         this.site_id = acquisition.site_id;
         this.site = acquisition.site;
         this.terrain_id = acquisition.terrain_id;
         this.terrain = acquisition.terrain;
         this.dateAcquisition = acquisition.dateAcquisition;
         this.montant = acquisition.montant;
-        this.createdAt = acquisition.createdAt;
-        this.UpdatedAt = acquisition.UpdatedAt;
-        this.createdBy = acquisition.createdBy;
-        this.UpdatedBy = acquisition.UpdatedBy;
+        this.created_at = acquisition.created_at;
+        this.updated_at = acquisition.updated_at;
+        this.createdauteur = acquisition.createdauteur;
+        this.updatedauteur = acquisition.updatedauteur;
     }
 }

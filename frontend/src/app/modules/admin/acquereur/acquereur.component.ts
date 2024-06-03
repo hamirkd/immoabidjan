@@ -79,12 +79,12 @@ ngAfterViewInit() {
       })
   }
   
-  editer(desagregationGeographique): void
+  editer(acquereur): void
   {
       this.dialogRef = this._matDialog.open(AddAcquereurComponent, {
           panelClass: '',
           data      : {
-              desagregationGeographique:desagregationGeographique,
+              acquereur:acquereur,
               action: 'edit'
           } 
       });
@@ -104,9 +104,9 @@ ngAfterViewInit() {
   {
       this.dialogRef = this._matDialog.open(AddAcquereurComponent, {
           panelClass: '',
-          data      : {
-              desagregationGeographique:{},
-              action: 'new'
+          data      :   {
+            acquereur:  {},
+            action: 'new'
           } 
       });
 

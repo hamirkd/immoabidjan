@@ -35,6 +35,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
         FormsModule,
         ReactiveFormsModule,MatButtonModule, HighchartsChartModule
     ],
+    declarations:[],
     exports: [
         CommonModule,
         FormsModule,
@@ -63,7 +64,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
         MatInputModule,
         MatDialogModule,
         MatOptionModule,
-        MatSelectModule,MatSnackBarModule,HighchartsChartModule
+        MatSelectModule,MatSnackBarModule,HighchartsChartModule,
 
     ]
 })

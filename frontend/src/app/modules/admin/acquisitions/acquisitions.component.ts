@@ -71,6 +71,7 @@ ngAfterViewInit() {
             this.paginator.length = data['total'];
           },1); 
       },err=>{ 
+        sessionStorage.removeItem("acquisitions");
       })
   }
   

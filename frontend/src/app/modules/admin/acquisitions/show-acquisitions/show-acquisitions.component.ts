@@ -12,8 +12,8 @@ import { AddAcquisitionComponent } from '../add-acquisitions/add-acquisitions.co
 
 @Component({
     selector: 'app-show-acquisition',
-    templateUrl: './show-acquisition.component.html',
-    styleUrls: ['./show-acquisition.component.scss']
+    templateUrl: './show-acquisitions.component.html',
+    styleUrls: ['./show-acquisitions.component.scss']
 })
 export class ShowAcquisitionComponent implements OnInit {
 

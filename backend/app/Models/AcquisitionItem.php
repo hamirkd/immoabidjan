@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Acquisition extends Model
+class AcquisitionItem extends Model
 {
     use HasFactory;
+    protected $table = 'acquisitions';
     /**
     * @var array
     */
@@ -38,7 +39,21 @@ class Acquisition extends Model
     {
         return Acquereur::find($this->acquereur_id);
     }
+    public function getCreatedauteurAttribute()
+    {
+        $user = User::find($this->created_by);
+        if(isset($user)) {
+            return $user->last_name.' '.$user->first_name;
+        }
+    }
+    public function getUpdatedauteurAttribute()
+    {
+        $user = User::find($this->updated_by);
+        if(isset($user)) {
+            return $user->last_name.' '.$user->first_name;
+        }
+    }
     
    
-    protected $appends = ['site','terrain','acquereur'];
+    protected $appends = ['site','terrain','acquereur','createdauteur','updatedauteur'];
 }
