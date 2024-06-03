@@ -8,11 +8,10 @@ import { VersementsService } from 'app/core/services/versements.service';
 import { UserService } from 'app/core/user/user.service';
 import { Versement } from 'app/models/versement.model';
 import moment from 'moment';
-import { _droit } from '../../DROIT_USER_MODULE';
 import { CaisseVersementMotifAnnulationComponent } from './caisse-versement-motif-annulation/caisse-versement-motif-annulation.component';
 import { PaiementComponent } from './paiement/paiement.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import FileSaver from 'file-saver';
+import { ProjetService } from 'app/core/services/projet.service';
 
 @Component({
     selector: 'app-caisse-versement',
@@ -21,7 +20,7 @@ import FileSaver from 'file-saver';
 })
 export class CaisseVersementComponent implements OnInit {
     constructor(
-        private _anneeService: AnneeService,
+        private _projetService: ProjetService,
         private _fuseConfirmationService: FuseConfirmationService,
         private _matDialog: MatDialog,
         private caisseVersementService: VersementsService,
@@ -33,7 +32,6 @@ export class CaisseVersementComponent implements OnInit {
             console.log(this.user);
         });
     }
-    _droit = _droit;
 
     dialogRef: any;
     actualiser = {};
@@ -68,7 +66,7 @@ export class CaisseVersementComponent implements OnInit {
     _updateDataSource() {
         this.caisseVersementService
             .getVersementByAnneeOrAll({
-                annee_id: this._anneeService.activeAnnee.id,
+                projet_id: this._projetService.projet.id,
                 datedebut: this.datedebut,
                 datefin: this.datefin,
             })
@@ -183,7 +181,7 @@ export class CaisseVersementComponent implements OnInit {
         montant:o['montant'],dateversement:o['dateversement']}));
   
         var blob = new Blob([this.convertToCSV(listeAImprimer)], {type: "text/csv;charset=utf-8"});
-        FileSaver.saveAs(blob,"paiement-liste.csv");
+        window.open(URL.createObjectURL(blob), '_blank');
     }
 
     convertToCSV(arr) {

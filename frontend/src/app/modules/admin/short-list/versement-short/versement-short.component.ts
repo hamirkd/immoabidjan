@@ -1,21 +1,11 @@
-import {
-    Component,
-    ElementRef,
-    Inject,
-    OnInit,
-    ViewChild,
-} from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { AnneeService } from 'app/core/services/annee.service';
-import jsPDF from 'jspdf';
-import * as moment from 'moment';
 import { AuthService } from 'app/core/auth/auth.service';
-import { environment } from 'environments/environment';
 import { Versement } from 'app/models/versement.model';
 import { PaiementComponent } from '../../caisse-versement/paiement/paiement.component';
 import { VersementsService } from 'app/core/services/versements.service';
@@ -23,12 +13,12 @@ import { ProjetService } from 'app/core/services/projet.service';
 import { CaisseVersementMotifAnnulationComponent } from '../../caisse-versement/caisse-versement-motif-annulation/caisse-versement-motif-annulation.component';
 
 @Component({
-    selector: 'app-eleve-detail',
-    templateUrl: './eleve-detail.component.html',
-    styleUrls: ['./eleve-detail.component.scss'],
+    selector: 'app-versement-short',
+    templateUrl: './versement-short.component.html',
+    styleUrls: ['./versement-short.component.scss'],
 })
-export class EleveDetailComponent implements OnInit {
-   
+export class VersementShortComponent implements OnInit {
+@Input('acquisition') acquisition
     dataSourceversement: MatTableDataSource<Versement> =
         new MatTableDataSource();
     displayedColumnsversement: string[] = [
@@ -37,6 +27,7 @@ export class EleveDetailComponent implements OnInit {
         'createdAt',
         'actions',
     ];
+    data:any={}
     dialogRef: any;
     constructor(
         private route: ActivatedRoute,
@@ -73,8 +64,7 @@ export class EleveDetailComponent implements OnInit {
             this.getHistoriqueVersement();
         });
     }
-    montant_scolarite;
-    montant_verse;
+    montant_verse=0;
     getHistoriqueVersement() {
         this._versementService
             .getEleveDetailVersementByAnneeAndEleve({
@@ -86,7 +76,6 @@ export class EleveDetailComponent implements OnInit {
                     this.dataSourceversement.data = data[
                         'versements'
                     ] as Versement[];
-                    this.montant_scolarite = data['montant_scolarite'];
                     this.montant_verse = data['montant_verse'];
                 },
                 (err) => {
@@ -159,4 +148,5 @@ export class EleveDetailComponent implements OnInit {
             }
         });
     }
+    downloadInvoice(){}
 }

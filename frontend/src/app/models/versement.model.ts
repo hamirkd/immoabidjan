@@ -1,6 +1,7 @@
 export class Versement {
     id?:number;
    acquisition_id:number;
+   site_id:number;
    terrain_id:number;
    projet_id:number;
    acquereur_id:number;

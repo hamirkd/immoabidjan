@@ -5,12 +5,12 @@
                 <label class="w-1/2 text-2xl font-bold tracking-tight">Versements</label>
             </div>
             <div class="w-1/2 pr-l text-center">
-                <label class="w-1/2 font-bold">Scolarité : </label>
-                <label class="w-1/2">{{montant_scolarite}}</label>
+                <label class="w-1/2 font-bold">Montant : </label>
+                <label class="w-1/2">{{acquisition.montant|number}}</label>
             </div>
             <div class="w-1/2 pr-l text-right">
                 <label class="w-1/2 font-bold">Reste à payer : </label>
-                <label class="w-1/2">{{montant_scolarite-montant_verse}}</label>
+                <label class="w-1/2">{{acquisition.montant-montant_verse|number}}</label>
             </div>
             <div class="flex w-1/2 pr-l text-right">
 
