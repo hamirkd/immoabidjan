@@ -49,7 +49,11 @@ export class ProjetsComponent implements OnInit, OnDestroy
 
         this._projectService.getAll().subscribe(data=>{
             this.listeProjets = data;
-            this._updateNavigation(); 
+            if(!this._projectService.projet?.id && this.listeProjets.length>0) {
+                this.setActiveProjet(this.listeProjets[0]);
+            }
+            else
+            this._updateNavigation();
         }) 
     }
 

@@ -211,7 +211,7 @@ export class CartoComponent implements OnInit {
                         point: {
                             events: {
                                 click: function(event) {
-                                    if (event.ctrlKey) {
+                                    if (event.ctrlKey || event.shiftKey) {
                                     // thisthis._router.navigate(['terrain/show',this['id']]);
                                     const url = thisthis._router.serializeUrl(
                                         thisthis._router.createUrlTree(['terrain/show', this['id']])
