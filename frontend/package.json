@@ -10,6 +10,7 @@
         "start": "ng serve --proxy-config proxy.conf.local.json --open",
         "dev": "ng serve --proxy-config proxy.conf.local.json --open",
         "build": "ng build --configuration production",
+        "buildprod": "ng build --configuration production",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "lint": "ng lint"
