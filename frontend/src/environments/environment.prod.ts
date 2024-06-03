@@ -10,5 +10,5 @@ export const environment = {
     // urlApi:"http://geschool-backend.ddns.net/",
     // urlApi:"/"
     // urlApi: url
-    urlApi: adresse
+    urlApi: adresse+':8000/'
 };
