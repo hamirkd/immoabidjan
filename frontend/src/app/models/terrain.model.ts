@@ -9,9 +9,11 @@ export class Terrain {
     lot:string;
     typeLogement:string;
     superficie:string;
+    terrain_id?: number;
 
     constructor(terrain){
         this.id = terrain?.id
+        this.terrain_id = terrain?.id
         this.site_id = terrain?.site_id
         this.numero = terrain?.numero
         this.code = terrain?.code

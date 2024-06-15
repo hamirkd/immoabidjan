@@ -1,0 +1,28 @@
+15-06-2024	14:51:54	Crystal Reports Exporter version 2.1.11.1207
+15-06-2024	14:51:54	creport parameters : -U immoabidjan -P immoabidjan -D 'immoabidjan' -S immoabidjan -F documents\CONTRAT_ACQUISITION.rpt -a 'acquisition_id:1' -O temp\CONTRAT_ACQUISITION.pdf -E pdf -l 
+15-06-2024	14:51:54	Instantiated ReportDocument object
+15-06-2024	14:51:55	Crystal Reports file documents\CONTRAT_ACQUISITION.rpt loaded
+15-06-2024	14:51:55	Database id = 0
+15-06-2024	14:51:55	Integrated Security = False
+15-06-2024	14:51:55	Default Server Name = immoabidjan
+15-06-2024	14:51:55	Default Database Name = immoabidjan
+15-06-2024	14:51:55	Logon to Server = immoabidjan
+15-06-2024	14:51:55	Logon to Database = 'immoabidjan'
+15-06-2024	14:51:55	Logon with user id = immoabidjan
+15-06-2024	14:51:55	Logon with password = immoabidjan
+15-06-2024	14:51:55	Logon to Server = immoabidjan
+15-06-2024	14:51:55	Logon to Database = 'immoabidjan'
+15-06-2024	14:51:55	Logon with user id = immoabidjan
+15-06-2024	14:51:55	Logon with password = immoabidjan
+15-06-2024	14:51:55	Logon to Server = immoabidjan
+15-06-2024	14:51:55	Logon to Database = 'immoabidjan'
+15-06-2024	14:51:55	Logon with user id = immoabidjan
+15-06-2024	14:51:55	Logon with password = immoabidjan
+15-06-2024	14:51:55	Logon to Server = immoabidjan
+15-06-2024	14:51:55	Logon to Database = 'immoabidjan'
+15-06-2024	14:51:55	Logon with user id = immoabidjan
+15-06-2024	14:51:55	Logon with password = immoabidjan
+15-06-2024	14:51:55	Report Output format set to : pdf
+15-06-2024	14:51:55	Report attribute : HasSavedData = False
+15-06-2024	14:51:55	Error : Echec de la connexion à la base de données.
+15-06-2024	14:51:56	ReportDocument closed

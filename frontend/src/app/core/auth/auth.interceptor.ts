@@ -66,6 +66,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     if ([401, 403].indexOf(error.status) !== -1) {
                         // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
                         this._authService.signOut();
+                        console.log("Pas authentifier")
                     }
                     // Sign out
                     // this._authService.signOut();

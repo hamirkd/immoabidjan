@@ -28,7 +28,8 @@ export class ShowAcquisitionComponent implements OnInit {
     acquisition_id
     acquisition: Acquisition = new Acquisition({});
     firstElement = "";
-    geoJSON: any = null
+    geoJSON: any = null;
+    data:any={};
     /**
      * Constructor
      */
@@ -70,6 +71,22 @@ export class ShowAcquisitionComponent implements OnInit {
                 }
 
                 this.ngOnInit();
+            });
+    }
+    genererContrat() {
+        this.data['refreshContrat']=true
+        this._acquisitionService.downloadGenererContrat(this.acquisition).subscribe(blob=>{
+            window.open(URL.createObjectURL(blob), '_blank');
+            this._snackBar.open('Téléchargement terminé', 'Splash', {
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
+                    duration: 2000
+                });
+                
+            this.data['refreshContrat']=false;
+
+            },err=>{    
+            this.data['refreshContrat']=false;
             });
     }
 }

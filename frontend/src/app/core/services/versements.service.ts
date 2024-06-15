@@ -22,8 +22,8 @@ export class VersementsService {
   }
 
   
-  getEleveDetailVersementByAnneeAndEleve(data:any):Observable<any[]>{ 
-    return this.apiService.post('api/versements/getEleveDetailVersementByAnneeAndEleve',data);
+  getByDataFilter(data:any):Observable<any[]>{ 
+    return this.apiService.post('api/versements/getByDataFilter',data);
   }
   /**
    * 

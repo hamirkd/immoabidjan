@@ -8,10 +8,12 @@ export class Acquereur {
     telephone:string;
     typeAcquereur:string;
     email:string;
+    acquereur_id?: number;
     
 
     constructor(terrain){
         this.id = terrain?.id;
+        this.acquereur_id = terrain?.id;
         this.nom = terrain?.nom;
         this.prenom = terrain?.prenom;
         this.docIdentification = terrain?.docIdentification;

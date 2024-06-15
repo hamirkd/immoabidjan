@@ -72,6 +72,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('acquisition/findBySite/{site_id}', 'App\Http\Controllers\AcquisitionController@findBySite');
     Route::get('acquisition/findByTerrain/{terrain_id}', 'App\Http\Controllers\AcquisitionController@findByTerrain');
     Route::get('acquisition/findByAcquereur/{acquereur_id}', 'App\Http\Controllers\AcquisitionController@findByAcquereur');
+    Route::post('acquisition/downloadGenererContrat', 'App\Http\Controllers\AcquisitionController@downloadGenererContrat');
     
     // Media
     Route::apiResource('media', 'App\Http\Controllers\MediaController');
@@ -82,4 +83,13 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('utilisateur', 'App\Http\Controllers\UtilisateurController');
     Route::get('utilisateur/find/all', 'App\Http\Controllers\UtilisateurController@findAll');
     Route::get('utilisateur/restore/{id}', 'App\Http\Controllers\UtilisateurController@restore');
+
+    // Versement
+    Route::apiResource('versements', 'App\Http\Controllers\VersementController');
+    Route::post('versements/getByDataFilter', 'App\Http\Controllers\VersementController@getByDataFilter');
+    Route::post('versements/cancelle', 'App\Http\Controllers\VersementController@cancelle');
+    Route::post('versements/restore', 'App\Http\Controllers\VersementController@restore');
+    Route::post('acquisition/paginate/{pageSize}/{pageIndex}', 'App\Http\Controllers\VersementController@getByDataFilterPaginate');
+
+    
 });

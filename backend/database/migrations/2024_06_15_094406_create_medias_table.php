@@ -19,10 +19,12 @@ class CreateMediasTable extends Migration
             $table->integer('parent_id');
             $table->string('libelle_document',255);
             $table->string('file_name',255);
-            $table->integer('updated_by')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();    
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');    
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');   
         });
     }
 

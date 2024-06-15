@@ -15,7 +15,7 @@ class CreateAcquereursTable extends Migration
     {
         Schema::create('acquereurs', function (Blueprint $table) {
             $table->id();
-            $table->integer('projet_id');
+            $table->unsignedBigInteger('projet_id');
             $table->string('nom',50);
             $table->string('prenom',50);
             $table->string('genre',50);
@@ -24,9 +24,12 @@ class CreateAcquereursTable extends Migration
             $table->string('email',255)->nullable();
             $table->string('telephone',255);
             $table->string('typeAcquereur',255);
-            $table->integer('updated_by')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
+            $table->foreign('projet_id')->references('id')->on('projets')->onDelete('cascade');   
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');    
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');   
         });
     }
 

@@ -19,9 +19,11 @@ class CreateProjetsTable extends Migration
             $table->string('intitule',255);
             $table->text('objectif')->nullable();
             $table->string('avatar',255)->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('created_by')->nullable();
-            $table->timestamps();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->timestamps();   
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');    
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');   
         });
     }
 

@@ -42,6 +42,11 @@ export class AcquisitionService {
         return this.apiService.post('api/acquisition', acquisition);
     }
 
+    downloadGenererContrat(acquisition: Acquisition): Observable<Blob> {
+        return this.apiService.post2('api/acquisition/downloadGenererContrat', acquisition);
+    }
+    
+
     update(acquisition: Acquisition): Observable<Acquisition> {
         return this.apiService.put('api/acquisition/' + acquisition.id, acquisition);
     }

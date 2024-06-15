@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{'Paiement'}}</h2>
+<h2 mat-dialog-title>{{"Paiement de l'acquisition " + versement.acquisition_id}}</h2>
 <mat-dialog-content class="  sm:p-6 w-200">
 
     <form class=" " [formGroup]="versementForm">
@@ -6,18 +6,19 @@
 
             <div class="flex">
 
-            </div>
-
-            <div class="flex">
+                <mat-form-field class="w-1/3 pr-2" *ngIf="!versement.acquisition_id">
+                    <mat-label>Acquisition </mat-label>
+                    <input type="number" matInput [formControlName]="'acquisition_id'">
+                </mat-form-field>
 
                 <mat-form-field class="w-1/3 pr-2" *ngIf="versement.site_id">
                     <mat-label>Site </mat-label>
                     <mat-select [formControlName]="'site_id'">
-                        <mat-option [value]="site.id" *ngFor="let site of listeSites" (click)="filterBySite(site.id)">{{site.libelle}}]</mat-option>
+                        <mat-option [value]="site.id" *ngFor="let site of listeSites" (click)="filterBySite(site.id)">[{{site.libelle}}]</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field class="w-1/3 pr-2" *ngIf="!versement?.acquereur_id">
+                <mat-form-field class="w-1/3 pr-2" *ngIf="versement?.acquereur_id">
                     <mat-label>Acquereur </mat-label>
                     <mat-select [formControlName]="'acquereur_id'">
                         <mat-option [value]="acquereur.id" *ngFor="let acquereur of listeAcquereurs" (click)="filterBySite(acquereur.id)">{{acquereur.genre}} {{acquereur.nom}} {{acquereur.prenom}}</mat-option>

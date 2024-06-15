@@ -90,6 +90,18 @@ class AcquisitionController extends Controller
         return Acquisition::where("acquereur_id","=",$acquereur_id)->get();
     }
 
+    public function downloadGenererContrat(Request $request) {
+        $user = env('DB_USERNAME', null);
+        $db = env('DB_DATABASE', null);
+        $serveur = env('DB_DATABASE', null);
+        $password = env('DB_PASSWORD', null);
+        
+        $file = fopen("acquisition.php", "w");
+        fwrite($file,"<?php shell_exec('..\cmd\crexport.exe -U $user -P $password -D $db -S $serveur -F documents\CONTRAT_ACQUISITION.rpt -a \"acquisition_id:$request->id\" -O temp\CONTRAT_ACQUISITION.pdf -E pdf -l'); ?>");
+        fclose($file);
+        shell_exec("..\cmd\crexport.exe -U $user -P $password -D $db  -S $serveur -F documents\CONTRAT_ACQUISITION.rpt -a \"acquisition_id:$request->id\" -O temp\CONTRAT_ACQUISITION.pdf -E pdf -l");
+        return response()->file("temp\CONTRAT_ACQUISITION.pdf");
+    }
 
     /**
      * Remove the specified resource from storage.

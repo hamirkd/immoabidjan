@@ -42,7 +42,7 @@
                             <div class="flex pt-6">
                                 <div class="w-1/3 pr-l">
                                     <label class="w-1/2">Montant : </label>
-                                    <label class="w-1/2">{{acquisition?.montant|number}}</label>
+                                    <label class="w-1/2">{{acquisition?.montant|currencyCFA}}</label>
                                 </div>
                                 <div class="w-1/3 pr-l">
                                     <label class="w-1/2">Date acquisition : </label>
@@ -65,10 +65,11 @@
                             <div class="w-1/3 pr-l">
                                 <span *ngIf="acquisition?.updated_at" class="rounded-2xl text-white text-sm bg-primary-500">Mise à jour le :{{acquisition?.updated_at|date : 'dd/MM/YYYY'}} {{acquisition?.updateddauteur?'par '+acquisition?.updateddauteur:''}}</span>
                             </div>
-                            <div class="w-1/3 pr-l">
-                                <button class=" text-sm h-6 min-h-6 px-2 rounded-full bg-hover cursor-pointer bg-primary-900" mat-button>
-                                    <mat-icon style="color: white;" svgIcon="iconsmind:printer"></mat-icon> &nbsp;
-                                    <label class="ml-0 cursor-pointer" style="color: white;">Generer contrat</label>
+                            <div class="w-1/3 pr-l text-right">
+                                <button [disabled]="data['refreshContrat']" (click)="genererContrat()" class=" text-sm h-6 min-h-6 px-2 rounded-full bg-hover cursor-pointer bg-primary-900" mat-button>
+                                    <mat-icon style="color: white;" svgIcon="iconsmind:refresh" [ngClass]="{'animate-spin-slow': data['refreshContrat']}" *ngIf="data['refreshContrat']"></mat-icon> &nbsp;
+                                    <mat-icon style="color: white;" svgIcon="iconsmind:printer"  *ngIf="!data['refreshContrat']"></mat-icon> &nbsp;
+                                    <label class="ml-0 cursor-pointer" style="color: white;" *ngIf="!data['refreshContrat']">Generer contrat</label>
                                 </button>
                             </div>
                         </div>

@@ -15,13 +15,16 @@ class CreateSitesTable extends Migration
     {
         Schema::create('sites', function (Blueprint $table) {
             $table->id();
-            $table->integer('projet_id')->nullable();
+            $table->unsignedBigInteger('projet_id');
             $table->string('geoJSON',50)->nullable();
             $table->string('libelle',50)->unique();
             $table->text('description')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
+            $table->foreign('projet_id')->references('id')->on('projets')->onDelete('cascade');   
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');    
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');   
         });
     }
 

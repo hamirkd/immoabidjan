@@ -27,6 +27,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { CurrencyCfaPipe } from 'app/core/pipe/currency-cfa.pipe';
+import { CurrencyPipe } from 'app/core/pipe/currency.pipe';
 
 
 @NgModule({
@@ -35,7 +37,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
         FormsModule,
         ReactiveFormsModule,MatButtonModule, HighchartsChartModule
     ],
-    declarations:[],
+    declarations:[CurrencyCfaPipe,CurrencyPipe],
     exports: [
         CommonModule,
         FormsModule,
@@ -64,7 +66,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
         MatInputModule,
         MatDialogModule,
         MatOptionModule,
-        MatSelectModule,MatSnackBarModule,HighchartsChartModule,
+        MatSelectModule,MatSnackBarModule,HighchartsChartModule,CurrencyCfaPipe,CurrencyPipe
 
     ]
 })

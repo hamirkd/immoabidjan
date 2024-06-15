@@ -36,22 +36,22 @@ export class VersementShortComponent implements OnInit {
         private _snackBar: MatSnackBar,
         private _projetService:ProjetService,
         private _authService: AuthService,
-        private _versementService: VersementsService
+        private _versementService: VersementsService,
     ) {
         
     }
 
     ngOnInit(): void {
+        this.getHistoriqueVersement();
     }
     
 
     addVersement(): void {
+        console.log(this.acquisition)
         this.dialogRef = this._matDialog.open(PaiementComponent, {
             panelClass: '',
             data: {
-                versement: {
-                    inscription_id: '',
-                    classe_id: '',
+                versement: {...this.acquisition,id:0
                 },
             },
         });
@@ -67,16 +67,19 @@ export class VersementShortComponent implements OnInit {
     montant_verse=0;
     getHistoriqueVersement() {
         this._versementService
-            .getEleveDetailVersementByAnneeAndEleve({
-                eleve_id: '',
-                annee_id: this._projetService.projet.id,
+            .getByDataFilter({
+                acquisition_id: '',
+                projet_id: this._projetService.projet.id,
             })
             .subscribe(
                 (data) => {
-                    this.dataSourceversement.data = data[
-                        'versements'
-                    ] as Versement[];
-                    this.montant_verse = data['montant_verse'];
+                    this.dataSourceversement.data = data as Versement[];
+
+                    console.log(data,'==');
+                    //this.montant_verse = data['montant_verse'];
+                    this.dataSourceversement.data.forEach(l=>{
+                        this.montant_verse = this.montant_verse + l.montant;
+                    });
                 },
                 (err) => {
                     this.dataSourceversement.data = [];

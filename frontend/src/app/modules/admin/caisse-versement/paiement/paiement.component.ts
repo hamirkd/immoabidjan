@@ -42,7 +42,7 @@ export class PaiementComponent implements OnInit {
       this.versement = new Versement(_data.versement);
    
       this.versement.dateversement =  moment().format('YYYY-MM-DD');
-      this.versementForm = this.createPaiementEleveForm();
+      this.versementForm = this.createPaiementForm();
   }
   versementForm: any;
 
@@ -71,15 +71,21 @@ export class PaiementComponent implements OnInit {
    * @returns {FormGroup}
    */
 
-  createPaiementEleveForm(): FormGroup {
+  createPaiementForm(): FormGroup {
       return this._formBuilder.group({
           acquisition_id: new FormControl({value: this.versement.acquisition_id, disabled: !!this.versement.acquisition_id}, Validators.required),
-          terrain_id: [this.versement.terrain_id],
-          acquereur_id: [this.versement.acquereur_id],
+          terrain_id: new FormControl({value:this.versement.terrain_id, disabled: !!this.versement.acquisition_id}, Validators.required),
+          acquereur_id: new FormControl({value:this.versement.acquereur_id, disabled: !!this.versement.acquisition_id}, Validators.required),
           projet_id: [this.versement.projet_id],
+          site_id: new FormControl({value:this.versement.site_id, disabled: !!this.versement.acquisition_id}, Validators.required),
+
           dateversement: new FormControl(this.versement.dateversement, Validators.required),
-          montant: new FormControl(this.versement.montant, Validators.required),
+          montant: new FormControl(0, Validators.required),
       });
+  }
+  test(){
+    console.log('versementForm', this.versementForm);
+    console.log('versementForm', this.versement);
   }
   
   onSubmit() {

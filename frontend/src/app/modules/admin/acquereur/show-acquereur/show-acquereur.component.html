@@ -83,5 +83,9 @@
                 <app-media [parent_id]="acquereur_id"
                 [parent_typedocument]="'DOSSIER_ACQUEREURS'"></app-media>
             </div>
+            
+            <div class="flex flex-col w-full">
+                <app-versement-short [acquisition]="acquereur"></app-versement-short>
+            </div>
         </div>
     </div>

@@ -16,6 +16,7 @@ export class Versement {
         this.acquisition_id = versement.acquisition_id;
         this.terrain_id = versement.terrain_id;
         this.projet_id = versement.projet_id;
+        this.site_id = versement.site_id;
         this.acquereur_id = versement.acquereur_id;
         this.montant = versement.montant;
         this.dateversement = versement.dateversement;

@@ -25,9 +25,11 @@ class CreateUsersTable extends Migration
             $table->enum('role', ['ADMIN','USER','COLLECTE','VISITEUR'])->nullable()->default('VISITEUR');
             $table->rememberToken();
             $table->softDeletes();
-            $table->integer('updated_by')->nullable();
-            $table->integer('created_by')->nullable();
-            $table->timestamps();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->timestamps();   
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');    
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');   
         });
     }
 
