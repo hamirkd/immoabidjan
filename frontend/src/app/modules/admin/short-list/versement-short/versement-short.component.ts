@@ -75,7 +75,7 @@ export class VersementShortComponent implements OnInit {
                 (data) => {
                     this.dataSourceversement.data = data as Versement[];
 
-                    console.log(data,'==');
+                    this.montant_verse = 0;
                     //this.montant_verse = data['montant_verse'];
                     this.dataSourceversement.data.forEach(l=>{
                         this.montant_verse = this.montant_verse + l.montant;

@@ -34,7 +34,9 @@
                                 </div>
                                 <div class="w-2/3 pr-l">
                                     <label class="w-1/2">Acquereur : </label>
-                                    <label class="w-1/2">{{acquisition?.acquereur?.genre}} {{acquisition?.acquereur?.nom}}  {{acquisition?.acquereur?.prenom}}</label>
+                                    <label class="w-1/2 text-primary-500" style="cursor:pointer" [routerLink]="['/acquereur/show',acquisition.acquereur_id]">
+                                        {{acquisition?.acquereur?.genre}} {{acquisition?.acquereur?.nom}}  {{acquisition?.acquereur?.prenom}}
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +52,9 @@
                                 </div>
                                 <div class="w-1/3 pr-l">
                                     <label class="w-1/2">Terrain : </label>
-                                    <label class="w-1/2">{{acquisition?.terrain?.code}}-{{acquisition?.terrain?.numero}}</label>
+                                    <label class="w-1/2 text-primary-500" style="cursor:pointer" [routerLink]="['/terrain/show',acquisition.terrain_id]">
+                                        {{acquisition?.terrain?.code}}-{{acquisition?.terrain?.numero}}
+                                    </label>
                                 </div>
                             </div>
 
