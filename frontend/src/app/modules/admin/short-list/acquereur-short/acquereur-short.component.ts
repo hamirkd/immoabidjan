@@ -39,6 +39,7 @@ export class AcquereurShortComponent implements OnInit {
     'typeAcquereur',
     'montant',
     'dateAcquisition',
+    'acquisition',
 ];
 
   recherche(textRecherche) {
@@ -57,7 +58,7 @@ export class AcquereurShortComponent implements OnInit {
         const acquereurs = [];
         
         acquisitions.forEach(ac=>{
-          acquereurs.push({...ac,...ac.acquereur});
+          acquereurs.push({...ac,...ac.acquereur, acquisition_id: ac.id});
         });
         this.dataSource.data = acquereurs;
       },err=>{

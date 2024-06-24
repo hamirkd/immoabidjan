@@ -84,11 +84,11 @@
                 </div>
             </div>
             <div class="flex flex-col w-full">
-                <app-media [parent_id]="acquisition_id"
-                [parent_typedocument]="'DOSSIER_ACQUISITIONS'"></app-media>
+                <app-versement-short [acquisition]="acquisition"></app-versement-short>
             </div>
             <div class="flex flex-col w-full">
-                <app-versement-short [acquisition]="acquisition"></app-versement-short>
+                <app-media [parent_id]="acquisition_id"
+                [parent_typedocument]="'DOSSIER_ACQUISITIONS'"></app-media>
             </div>
             
         </div>

@@ -45,6 +45,10 @@
                         <th mat-header-cell *matHeaderCellDef> Date acquisition </th>
                         <td mat-cell *matCellDef="let element"> {{element.dateAcquisition|date : 'dd/MM/YYYY'}} </td>
                     </ng-container>
+                    <ng-container matColumnDef="acquisition">
+                        <th mat-header-cell *matHeaderCellDef> No. Acqui. </th>
+                        <td mat-cell *matCellDef="let element" style="cursor:pointer"><span class="text-primary-500" [routerLink]="['/acquisitions/show',element.acquisition_id]">{{element.acquisition_id}}</span> </td>
+                    </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let element;let row; columns: displayedColumns;"></tr>
                 </table>

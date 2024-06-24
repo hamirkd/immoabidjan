@@ -35,6 +35,7 @@ export class TerrainShortComponent implements OnInit {
     'superficie',
     'montant',
     'dateAcquisition',
+    'acquisition',
 ];
 
   recherche(textRecherche) {
@@ -53,7 +54,7 @@ export class TerrainShortComponent implements OnInit {
         const acquisitions = data as Acquisition[];
         const terrains = [];
         acquisitions.forEach(ac=>{
-          terrains.push({...ac,...ac.terrain});
+          terrains.push({...ac,...ac.terrain, acquisition_id:ac.id});
         });
         this.dataSource.data = terrains;
       },err=>{
