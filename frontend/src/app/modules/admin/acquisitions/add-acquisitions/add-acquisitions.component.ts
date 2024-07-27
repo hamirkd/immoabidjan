@@ -38,6 +38,7 @@ export class AddAcquisitionComponent implements OnInit  {
   acquisitionForm: any;
 
   listeTerrain: Terrain[]= [];
+  listeTerrainD: Terrain[]= [];
   listeSite: Site[]= []
   listeAcquereur: Acquereur[]= [];
 
@@ -45,6 +46,7 @@ export class AddAcquisitionComponent implements OnInit  {
     this._terrainService.getAll().subscribe(data=>{
       this.listeTerrain.push(new Terrain({}));
       this.listeTerrain.push(...data as Terrain[]);
+      this.listeTerrainD.push(...data as Terrain[]);
     });
     this._siteService.getAll().subscribe(data=>{
       this.listeSite.push(new Site({}));
@@ -90,4 +92,7 @@ export class AddAcquisitionComponent implements OnInit  {
     }
     
 }
+  filterTerrain(site_id){
+      this.listeTerrainD = this.listeTerrain.filter(terrain=> terrain.site_id == site_id);
+  }
 }

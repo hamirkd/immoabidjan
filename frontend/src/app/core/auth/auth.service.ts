@@ -3,6 +3,7 @@ import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { ApiService } from '../services/api.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService
@@ -14,7 +15,8 @@ export class AuthService
      */
     constructor(
         private _httpClient: ApiService,
-        private _userService: UserService
+        private _userService: UserService,
+        private _router: Router,
     )
     {
     }
@@ -103,7 +105,10 @@ export class AuthService
             catchError(() =>
 
                 // Return false
-                of(false)
+                {
+                    
+                return of(false)
+                }
             ),
             switchMap((response: any) => {
 
@@ -128,6 +133,7 @@ export class AuthService
      */
     signOut(): Observable<any>
     {
+        this._router.navigate(['/sign-out']);
         // Remove the access token from the local storage
         localStorage.removeItem('accessToken');
 

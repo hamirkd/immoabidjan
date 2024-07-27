@@ -6,13 +6,13 @@
                 <mat-form-field class="w-1/2 pr-1">
                     <mat-label>Site</mat-label>
                     <mat-select [formControlName]="'site_id'" required>
-                        <mat-option [value]="site.id" *ngFor="let site of listeSite">{{site.libelle}}</mat-option>
+                        <mat-option [value]="site.id" *ngFor="let site of listeSite"  (click)="filterTerrain(site.id)">{{site.libelle}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="w-1/2 pr-1">
                     <mat-label>Terrain</mat-label>
                     <mat-select [formControlName]="'terrain_id'" required>
-                        <mat-option [value]="terrain.id" *ngFor="let terrain of listeTerrain">{{terrain.code}}-{{terrain.numero}}</mat-option>
+                        <mat-option [value]="terrain.id" *ngFor="let terrain of listeTerrainD">{{terrain.code}}-{{terrain.numero}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -31,7 +31,7 @@
             <div class="flex">
                 <mat-form-field class="w-1/2 pr-1">
                     <mat-label>Montant</mat-label>
-                    <input matInput [formControlName]="'montant'" type="number" required>
+                    <input matInput [formControlName]="'montant'" type="currency" required>
                 </mat-form-field>
             </div>
         </div>

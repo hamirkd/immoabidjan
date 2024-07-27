@@ -33,10 +33,12 @@ export class CarteSiteComponent implements OnInit {
 
   ngOnInit(){
     console.log(this.geoJSON)
+    let st : string ="dao"
     let dataSource = []
     this.geoJSON['features'].forEach(o=>{
       dataSource.push({code:o.properties.code,name:o.properties.name,contenance:o.properties.contenance})
     })
+    dataSource.sort((a,b)=>a.name.localeCompare(b.name))
     this.dataSource.data = dataSource
       this.chartOptions = 
       {

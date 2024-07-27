@@ -1,0 +1,30 @@
+19-07-2024	11:08:22	Crystal Reports Exporter version 2.1.11.1207
+19-07-2024	11:08:22	creport parameters : -U immoabidjan -P immoabidjan -D immoabidjan -S immoabidjan -F documents\CONTRAT_ACQUISITION.rpt -a acquisition_id:1 -O temp\CONTRAT_ACQUISITION.pdf -E pdf -l 
+19-07-2024	11:08:22	Instantiated ReportDocument object
+19-07-2024	11:08:23	Crystal Reports file documents\CONTRAT_ACQUISITION.rpt loaded
+19-07-2024	11:08:23	Database id = 0
+19-07-2024	11:08:23	Integrated Security = False
+19-07-2024	11:08:23	Default Server Name = immoabidjan
+19-07-2024	11:08:23	Default Database Name = immoabidjan
+19-07-2024	11:08:23	Logon to Server = immoabidjan
+19-07-2024	11:08:23	Logon to Database = immoabidjan
+19-07-2024	11:08:23	Logon with user id = immoabidjan
+19-07-2024	11:08:23	Logon with password = immoabidjan
+19-07-2024	11:08:23	Logon to Server = immoabidjan
+19-07-2024	11:08:23	Logon to Database = immoabidjan
+19-07-2024	11:08:23	Logon with user id = immoabidjan
+19-07-2024	11:08:23	Logon with password = immoabidjan
+19-07-2024	11:08:23	Logon to Server = immoabidjan
+19-07-2024	11:08:23	Logon to Database = immoabidjan
+19-07-2024	11:08:23	Logon with user id = immoabidjan
+19-07-2024	11:08:23	Logon with password = immoabidjan
+19-07-2024	11:08:23	Logon to Server = immoabidjan
+19-07-2024	11:08:23	Logon to Database = immoabidjan
+19-07-2024	11:08:23	Logon with user id = immoabidjan
+19-07-2024	11:08:23	Logon with password = immoabidjan
+19-07-2024	11:08:23	Report Output format set to : pdf
+19-07-2024	11:08:23	Report attribute : HasSavedData = False
+19-07-2024	11:08:23	Discrete Parameter : acquisition_id = 1
+19-07-2024	11:08:23	Report rows = 1
+19-07-2024	11:08:24	Report exported to : temp\CONTRAT_ACQUISITION.pdf
+19-07-2024	11:08:24	ReportDocument closed

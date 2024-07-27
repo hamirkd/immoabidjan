@@ -18,7 +18,7 @@ class CreateTerrainsTable extends Migration
             $table->unsignedBigInteger('projet_id')->nullable();
             $table->unsignedBigInteger('site_id');
             $table->string('code',20);
-            $table->string('numero',6);
+            $table->string('numero',20);
             $table->string('lot',4)->nullable();
             $table->string('typeLogement',20)->nullable();
             $table->string('superficie',11)->nullable();
