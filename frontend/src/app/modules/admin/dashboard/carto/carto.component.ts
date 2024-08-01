@@ -251,7 +251,7 @@ export class CartoComponent implements OnInit {
                                     if (event.ctrlKey || event.shiftKey) {
                                     // thisthis._router.navigate(['terrain/show',this['id']]);
                                     const url = thisthis._router.serializeUrl(
-                                        thisthis._router.createUrlTree(['/terrain/show', this['id']])
+                                        thisthis._router.createUrlTree(['../terrain/show', this['id']])
                                       );
                                       window.open(url, '_blank');
                                     // alert('Parcelle: ' + this.name + '\n' +

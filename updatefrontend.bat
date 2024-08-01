@@ -1,5 +1,5 @@
 @echo off
-
+git pull origin master
 set "target_dir=..\immo"
 
 echo Suppression de tout le contenu du dossier %target_dir%
