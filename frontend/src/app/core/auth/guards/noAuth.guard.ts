@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
 import { Observable, of, switchMap } from 'rxjs';
 import { AuthService } from 'app/core/auth/auth.service';
 
@@ -13,7 +13,8 @@ export class NoAuthGuard implements CanActivate, CanActivateChild, CanLoad
      */
     constructor(
         private _authService: AuthService,
-        private _router: Router
+        private _router: Router,
+        private _activatedRoute: ActivatedRoute,
     )
     {
     }
@@ -74,8 +75,13 @@ export class NoAuthGuard implements CanActivate, CanActivateChild, CanLoad
                            // If the user is authenticated...
                            if ( authenticated )
                            {
+                            let redirectURL = '';
+                            if (location.href.includes('redirectURL')) {
+                                redirectURL = location.href.slice(location.href.indexOf('=')+1)
+                            }
                                // Redirect to the root
-                               this._router.navigate(['']);
+                            //    this._router.navigate(['']);
+                               this._router.navigateByUrl(redirectURL);
 
                                // Prevent the access
                                return of(false);

@@ -248,11 +248,16 @@ export class CartoComponent implements OnInit {
                         point: {
                             events: {
                                 click: function(event) {
+                                    const host = location.hostname
+                                    const adresse = location.origin
+                                    console.log(location,'location')
                                     if (event.ctrlKey || event.shiftKey) {
                                     // thisthis._router.navigate(['terrain/show',this['id']]);
-                                    const url = thisthis._router.serializeUrl(
-                                        thisthis._router.createUrlTree(['../terrain/show', this['id']])
-                                      );
+                                    console.log(window)
+                                    // const url = thisthis._router.serializeUrl(
+                                    //     thisthis._router.createUrlTree(['../terrain/show', this['id']])
+                                    //   );
+                                    const url = location.href + '/../sign-in?redirectURL=terrain/show/' + this['id']
                                       window.open(url, '_blank');
                                     // alert('Parcelle: ' + this.name + '\n' +
                                     //       'Code: ' + this['code'] + '\n' +
