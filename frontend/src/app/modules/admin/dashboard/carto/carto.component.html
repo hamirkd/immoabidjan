@@ -26,18 +26,24 @@
                     </mat-form-field>
                 </div>
             </div>
+            <div  class="pb-7 sm:p-1 sm:pb-7">
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle value="EsriWorldTopoMap" (click)="changerStructure('EsriWorldTopoMap')">Topo Map</mat-button-toggle>
+                    <mat-button-toggle value="OpenStreetMap" (click)="changerStructure('OpenStreetMap')">Plan</mat-button-toggle>
+                    <mat-button-toggle value="Esri" (click)="changerStructure('Esri')">Géoplan</mat-button-toggle>
+                  </mat-button-toggle-group>
+            </div>
             <div class="pb-7 sm:p-1 sm:pb-7 shadow rounded-2xl bg-card  bg-white dark:bg-white-500" *ngIf="geoJSON!=null && isRefresh">
                 <div class="flex flex-col flex-auto">
-                    <div class="flex w-full bg-white dark:bg-white-500" id="map-container">
-                            <highcharts-chart *ngIf="isRefresh" id="container" [Highcharts]="Highcharts" [constructorType]="chartConstructor" [options]="chartOptions" style="width: 100%; height: 90vh; display: block;">
+                            <highcharts-chart 
+                            [(update)]="updateFlag" class="flex w-full bg-white dark:bg-white-500" *ngIf="isRefresh" id="container" [Highcharts]="Highcharts" [constructorType]="chartConstructor" [options]="chartOptions" style="width: 100%; height: 90vh; display: block;">
                             </highcharts-chart>
-                            <button
+                            <!-- <button 
                             mat-icon-button
                             [matTooltip]="tooltip || 'Toggle Fullscreen'"
                             (click)="toggleFullscreen()">
                             <ng-container [ngTemplateOutlet]="iconTpl || defaultIconTpl"></ng-container>
-                        </button>
-                    </div>
+                        </button> -->
                 </div>
             </div>
         </div>

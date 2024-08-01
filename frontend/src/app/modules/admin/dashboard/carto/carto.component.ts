@@ -10,6 +10,15 @@ import { FSDocument, FSDocumentElement } from '@fuse/components/fullscreen';
 import { Router } from '@angular/router';
 import { TerrainService } from 'app/core/services/terrain.service';
 import { Terrain } from 'app/models/terrain.model';
+import accessibility from 'highcharts/modules/accessibility'; // Assure-toi d'inclure le module d'accessibilité
+import exporting from 'highcharts/modules/exporting'; // Assure-toi d'inclure le module exporting
+import tiledwebmap from "highcharts/modules/tiledwebmap";
+
+accessibility(Highcharts);
+exporting(Highcharts);
+
+
+tiledwebmap(Highcharts);
 
 @Component({
     selector: 'app-carto',
@@ -27,6 +36,7 @@ export class CartoComponent implements OnInit {
     site_id
     site: Site = new Site({});
     geoJSON: any = null;
+    typeStructure:any;
 
     optionsGroup: any[];
 
@@ -38,6 +48,7 @@ export class CartoComponent implements OnInit {
     chartConstructor = "mapChart";
     isRefresh = false;
     dataSource: MatTableDataSource<any> = new MatTableDataSource();
+    updateFlag = true;
 
     displayedColumns: string[] = [
         'code',
@@ -47,7 +58,7 @@ export class CartoComponent implements OnInit {
     ];
 
     enPleinEcran = false
-    chartOptions: Highcharts.Options = {};
+    chartOptions:any;// Highcharts.Options = {};
     /**
      * Constructor
      */
@@ -174,7 +185,7 @@ export class CartoComponent implements OnInit {
             
             this.chartOptions = {
                 chart: {
-                    map: this.geoJSON,
+                    map: null,
                 },
                 title: {
                     text: "SITE de " + this.afficherLibelleSite
@@ -187,12 +198,36 @@ export class CartoComponent implements OnInit {
                     }
                 },
                 legend: {
-                    enabled: false
+                    enabled: true
                 },
                 colorAxis: {
                     min: 0
                 },
                 series: [
+                    
+                    {
+                        type: 'tiledwebmap',
+                        name: 'Carte OpenStreetMap',
+                        provider: {
+                        type: 'OpenStreetMap',// Thunderforest|OpenStreetMap|Esri|Stamen
+                        theme: 'Standard',// OpenTopoMap|Standard,
+                        // type: 'Esri',// Thunderforest|OpenStreetMap|Esri|Stamen
+                        // theme: 'WorldStreetMap',// WorldTopoMap|WorldImagery|WorldStreetMap,
+                        // type: 'OpenStreetMap',// Thunderforest|OpenStreetMap|Esri|Stamen
+                        // theme: 'Standard',// OpenTopoMap|Standard,
+                        
+                        // subdomain: 'a'
+                        // https://www.highcharts.com/docs/maps/tiledwebmap
+                        },
+                        showInLegend : true,
+                        states: {
+                        hover: {
+                            enabled: true,
+                            opacity: 0.2,
+                            color: 'rgba(0, 0, 0, 0)', // Couleur transparente au survol
+                        },
+                        },
+                    },
                     {
                         type: "map",
                         name: "Parcelle",
@@ -201,6 +236,8 @@ export class CartoComponent implements OnInit {
                                 color: "#BADA55"
                             }
                         },
+                        mapData: this.geoJSON,
+                        showInLegend : true,
                         dataLabels: {
                             enabled: true,
                             format: "{point.name}"
@@ -244,7 +281,10 @@ export class CartoComponent implements OnInit {
                 exporting: {
                     showTable: true,
                     allowHTML: true
-                }
+                },
+                accessibility: {
+                  enabled: true, // Assure-toi que l'accessibilité est activée
+                },
             };
         }, err => {
             console.log(err);
@@ -342,6 +382,23 @@ export class CartoComponent implements OnInit {
             this._fsDocEl.msRequestFullscreen();
             return;
         }
+    }
+    changerStructure(event) {
+        switch(event) {
+            case 'OpenStreetMap':
+                this.chartOptions.series[0].provider.type = 'OpenStreetMap';
+                this.chartOptions.series[0].provider.theme = 'Standard';
+                break;
+            case 'Esri':
+                this.chartOptions.series[0].provider.type = 'Esri';
+                this.chartOptions.series[0].provider.theme = 'WorldImagery';
+                break;
+            case 'EsriWorldTopoMap':
+                this.chartOptions.series[0].provider.type = 'Esri';
+                this.chartOptions.series[0].provider.theme = 'WorldTopoMap';
+                break;
+        }
+        this.updateFlag = true;
     }
 
     /**
